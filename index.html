@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bluetooth Scan</title>
+    <!-- Add the Popper.js and Bootstrap JavaScript libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container d-flex justify-content-center align-item-center">
+        <!-- Button to trigger Bluetooth scan -->
+        <button type="button" class="btn btn-primary" id="scanbtn">Scan</button>
+    </div>
+    <!-- <script>
+        // Select the button element without using #
+        const button = document.getElementById('scanbtn');
+
+        async function onButtonClick() {
+            let options = {
+                acceptAllAdvertisements: true
+            };
+
+            try {
+                console.log('Requesting Bluetooth Scan with options: ' + JSON.stringify(options));
+                const scan = await navigator.bluetooth.requestLEScan(options);
+
+                console.log('Scan started with:');
+                console.log(' acceptAllAdvertisements: ' + scan.acceptAllAdvertisements);
+                console.log(' active: ' + scan.active);
+                console.log(' keepRepeatedDevices: ' + scan.keepRepeatedDevices);
+                console.log(' filters: ' + JSON.stringify(scan.filters));
+
+                navigator.bluetooth.addEventListener('advertisementreceived', event => {
+                    console.log('Advertisement received.');
+                    console.log('  Device Name: ' + event.device.name);
+                    console.log('  Device ID: ' + event.device.id);
+                    console.log('  RSSI: ' + event.rssi);
+                    console.log('  TX Power: ' + event.txPower);
+                    console.log('  UUIDs: ' + event.uuids);
+                    event.manufacturerData.forEach((valueDataView, key) => {
+                        logDataView('Manufacturer', key, valueDataView);
+                    });
+                    event.serviceData.forEach((valueDataView, key) => {
+                        logDataView('Service', key, valueDataView);
+                    });
+                });
+
+                setTimeout(stopScan, 10000);
+                function stopScan() {
+                    console.log('Stopping scan...');
+                    scan.stop();
+                    console.log('Stopped. scan.active = ' + scan.active);
+                }
+            } catch(error)  {
+                console.error('Argh! ' + error);
+            }
+        }
+
+        /* Utils */
+
+        const logDataView = (labelOfDataSource, key, valueDataView) => {
+            const hexString = [...new Uint8Array(valueDataView.buffer)].map(b => {
+                return b.toString(16).padStart(2, '0');
+            }).join(' ');
+            const textDecoder = new TextDecoder('ascii');
+            const asciiString = textDecoder.decode(valueDataView.buffer);
+            console.log(`  ${labelOfDataSource} Data: ` + key +
+                '\n    (Hex) ' + hexString +
+                '\n    (ASCII) ' + asciiString);
+        };
+
+        // Add event listener to the button
+        button.addEventListener('click', async () => {
+            // Call the asynchronous function when the button is clicked
+            await onButtonClick();
+        });
+    </script> -->
+</body>
+</html>
